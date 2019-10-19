@@ -5,6 +5,16 @@ public class ValidationError
     private String Code;
     private String message;
 
+    public ValidationError()
+    {
+    }
+
+    public ValidationError(String code, String message)
+    {
+        Code = code;
+        this.message = message;
+    }
+
     public String getCode()
     {
         return Code;

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -59,21 +60,20 @@ public class BookController
         return new ResponseEntity<>(myBooks, HttpStatus.OK);
     }
 
-//    // POST http://localhost:2019/books/2/authors/1
-//    @PostMapping(value = "/{bookid}/authors/{authorid}",
-//                 consumes = {"application/json"},
-//                 produces = {"application/json"})
-//    public ResponseEntity<?> assignBookToUser(@PathVariable
-//                                                          long bookid,
-//                                              @PathVariable long authorid) throws URISyntaxException
-//    {
-//
-//        Book newBook = bookService.findBookById(bookid);
-//        Author newAuthor = authorService.findAuthorById(authorid);
-//
-//        newAuthor.setBooks();
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    // http://localhost:2019/data/books/15/authors/2
+    @PostMapping("/data/books/{bookid}/authors/{authorid}")
+    public ResponseEntity<?> postBookAuthorByIds(HttpServletRequest request,
+                                               @PathVariable
+                                                       long bookid,
+                                               @PathVariable
+                                                       long authorid)
+    {
+
+        bookService.addBookToAuthor(bookid,
+                authorid);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     @PutMapping(value = "data/books/{bookid}")
     public ResponseEntity<?> updateBook(
